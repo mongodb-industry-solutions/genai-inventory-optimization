@@ -1,0 +1,40 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 16px;
+  width: 300px;
+  background-color: #001E2B;
+  box-sizing: border-box;
+  border-radius: 0 40px 0 0;
+}
+
+.criteriaContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between buttons */
+  margin-top: 35px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.criteriaItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.criteriaName {
+  color: white;
+  font-size: 14px;
+  flex-grow: 1;
+}
+
+.generateButton {
+  margin-top: auto;
+  align-self: center;
+  margin-bottom: 50px;
+}

@@ -1,0 +1,66 @@
+.tableWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
+
+.tableContainer {
+  width: 80%;
+  max-width: 1200px;
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+.weightInput {
+width: 80px;
+}
+
+.table {
+  height: 600px;
+}
+
+.resetButton {
+  padding: 6px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.resetButton:hover {
+  background-color: #0056b3;
+}
+
+.buttonWrapper {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.centeredCell {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.arrow {
+  margin-left: 5px;
+  font-size: 14px;
+}
+
+.up {
+  color: green;
+}
+
+.down {
+  color: red;
+}
+
+.same {
+  color: gray;
+}

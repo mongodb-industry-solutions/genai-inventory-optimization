@@ -1,0 +1,29 @@
+.modalContent {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .selectedSources {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+.criteriaName {
+  width: calc(100% - 25px);
+}
+
+#criteriaDefinition {
+  height: 150px;
+}
+
+.modal {
+  z-index: 2;
+}
+
+.modalCenteredContent {
+  min-height: 600px;
+  align-items: center;
+  justify-content: center;
+}
