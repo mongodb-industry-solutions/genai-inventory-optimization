@@ -20,10 +20,24 @@
 
 .modal {
   z-index: 2;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .modalCenteredContent {
   min-height: 600px;
   align-items: center;
   justify-content: center;
+}
+
+.generateButton {
+  width: fit-content;
+  align-self: flex-end;
+}
+
+.autofillButton {
+  width: fit-content;
+  align-self: flex-end;
 }

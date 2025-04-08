@@ -15,6 +15,7 @@ import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import { NumberInput } from "@leafygreen-ui/number-input";
 import { TableSkeleton } from "@leafygreen-ui/skeleton-loader";
+import Tooltip from "@leafygreen-ui/tooltip";
 import Badge from "@leafygreen-ui/badge";
 import Code from "@leafygreen-ui/code";
 import styles from "./table.module.css";
@@ -247,13 +248,19 @@ export default function DataTable({ products, criteria }) {
             <TableHead isSticky>
               <HeaderRow>
                 <HeaderCell>
-                  <Body>Weights</Body>
-                  <IconButton
-                    aria-label="Refresh weights"
-                    onClick={resetWeights}
+                  <Body weight="medium">Weights</Body>
+                  <Tooltip
+                    trigger={
+                      <IconButton
+                        aria-label="Refresh weights"
+                        onClick={resetWeights}
+                      >
+                        <Icon glyph="Revert" />
+                      </IconButton>
+                    }
                   >
-                    <Icon glyph="Refresh" />
-                  </IconButton>
+                    Reset the weights to default values
+                  </Tooltip>
                 </HeaderCell>
                 {criteria.map((c) => (
                   <HeaderCell key={c}>
@@ -324,7 +331,9 @@ export default function DataTable({ products, criteria }) {
         )}
       </div>
       <div className={styles.buttonWrapper}>
-        <Button onClick={runAnalysis}>Run Analysis</Button>
+        <Button onClick={runAnalysis} variant="primary">
+          Run Analysis
+        </Button>
       </div>
     </div>
   );
