@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-bedrock-runtime": "^3.758.0",
+    "@aws-sdk/credential-provider-sso": "^3.782.0",
     "@leafygreen-ui/badge": "^9.0.5",
     "@leafygreen-ui/button": "^23.1.1",
     "@leafygreen-ui/chip": "^3.0.6",

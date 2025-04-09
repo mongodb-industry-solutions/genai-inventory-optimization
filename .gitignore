@@ -48,3 +48,7 @@ utils/simulation.py
 utils/requirements.txt
 utils/data
 
+# Deployment
+policy.json
+Makefile
+task-def.json

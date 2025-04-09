@@ -1,0 +1,13 @@
+services:
+  front:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    env_file:
+      - app/.env.production
+    ports:
+      - "3000:3000"
+    volumes:
+      - ~/.aws/credentials:/home/nextjs/.aws/credentials:ro
+      - ~/.aws/config:/home/nextjs/.aws/config:ro
+      - ~/.aws/sso/cache:/home/nextjs/.aws/sso/cache:rw
