@@ -3,16 +3,9 @@ import {
   ConverseCommand,
   InvokeModelCommand,
 } from "@aws-sdk/client-bedrock-runtime";
+import { fromSSO } from "@aws-sdk/credential-provider-sso";
+import { defaultProvider } from "@aws-sdk/credential-provider-node";
 
-if (!process.env.AWS_ACCESS_KEY_ID) {
-  throw new Error('Invalid/Missing environment variable: "AWS_ACCESS_KEY_ID"');
-}
-
-if (!process.env.AWS_SECRET_ACCESS_KEY) {
-  throw new Error(
-    'Invalid/Missing environment variable: "AWS_SECRET_ACCESS_KEY"'
-  );
-}
 if (!process.env.COMPLETION_MODEL_ID) {
   throw new Error(
     'Invalid/Missing environment variable: "COMPLETION_MODEL_ID"'
@@ -27,21 +20,29 @@ if (!process.env.AWS_REGION) {
   throw new Error('Invalid/Missing environment variable: "AWS_REGION"');
 }
 
+if (!process.env.AWS_PROFILE) {
+  throw new Error('Invalid/Missing environment variable: "AWS_PROFILE"');
+}
+
+if (!process.env.NEXT_PUBLIC_ENV) {
+  throw new Error('Invalid/Missing environment variable: "NEXT_PUBLIC_ENV"');
+}
+
 const COMPLETION_MODEL_ID = process.env.COMPLETION_MODEL_ID;
 const EMBEDDING_MODEL_ID = process.env.EMBEDDING_MODEL_ID;
 const AWS_REGION = process.env.AWS_REGION;
-const AWS_ACCESS_KEY_ID = process.env.AWS_ACCESS_KEY_ID;
-const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY;
+const AWS_PROFILE = process.env.AWS_PROFILE;
+const ENV = process.env.NEXT_PUBLIC_ENV;
 
 let bedrockClient;
 function getBedrockClient() {
   if (!bedrockClient) {
     bedrockClient = new BedrockRuntimeClient({
       region: AWS_REGION,
-      credentials: {
-        accessKeyId: AWS_ACCESS_KEY_ID,
-        secretAccessKey: AWS_SECRET_ACCESS_KEY,
-      },
+      credentials:
+        ENV == "production"
+          ? defaultProvider()
+          : fromSSO({ profile: AWS_PROFILE }),
     });
   }
   return bedrockClient;
