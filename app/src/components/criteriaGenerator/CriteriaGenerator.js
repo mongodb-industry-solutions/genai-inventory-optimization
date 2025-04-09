@@ -146,6 +146,8 @@ export default function CriteriaGenerator({
             isLoading={loading}
             loadingText="Filling descriptions…"
             loadingIndicator={<Spinner />}
+            className={styles.autofillButton}
+            size="xsmall"
           >
             Autofill
           </Button>
@@ -196,6 +198,7 @@ export default function CriteriaGenerator({
             onClick={handleGenerateCriteria}
             disabled={isGenerateDisabled}
             variant={"baseGreen"}
+            className={styles.generateButton}
           >
             Generate
           </Button>

@@ -104,8 +104,10 @@ export default function Sidebar({
         className={styles.generateButton}
         darkMode={true}
         onClick={() => setModalOpen(true)}
+        variant="primaryOutline"
+        leftGlyph={<Icon glyph="PlusWithCircle" />}
       >
-        Generate Criteria
+        Add New Criteria
       </Button>
 
       {isModalOpen && (
