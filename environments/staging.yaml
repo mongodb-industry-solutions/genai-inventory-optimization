@@ -1,0 +1,14 @@
+# Secret environment variables (references to K8s secrets)
+envSecrets:
+  MONGODB_URI: inventory-optimization
+  DATABASE_NAME: inventory-optimization
+  COMPLETION_MODEL_ID: inventory-optimization
+  EMBEDDING_MODEL_ID: inventory-optimization
+  AWS_REGION: inventory-optimization
+  AWS_PROFILE: inventory-optimization
+  NEXT_PUBLIC_ENV: inventory-optimization
+
+serviceAccount:
+  enabled: true
+  create: false # Don't create a new service account
+  name: irsa
