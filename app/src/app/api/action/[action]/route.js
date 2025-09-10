@@ -1,4 +1,4 @@
-import { clientPromise } from "@/lib/mongodb";
+import getMongoClientPromise from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 
@@ -31,7 +31,7 @@ export async function POST(req, { params }) {
       );
     }
 
-    const client = await clientPromise;
+    const client = await getMongoClientPromise();
     const db = client.db(database);
     const col = db.collection(collection);
 

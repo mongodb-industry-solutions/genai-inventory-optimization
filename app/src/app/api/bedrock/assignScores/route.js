@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { clientPromise, vectorSearch } from "@/lib/mongodb";
+import getMongoClientPromise, { vectorSearch } from "@/lib/mongodb";
 import { generateEmbedding, getCriteriaScore } from "@/lib/bedrock";
 
 export async function POST(req) {
@@ -20,7 +20,7 @@ export async function POST(req) {
     }
 
     // Establish MongoDB connection
-    const client = await clientPromise;
+    const client = await getMongoClientPromise();
     const db = client.db(database);
     const datasetCollection = db.collection("dataset");
 
