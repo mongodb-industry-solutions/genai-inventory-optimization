@@ -1,4 +1,11 @@
-.env*
+.env
+.env.*
+*.env
+*.env.*
+**/.env
+**/.env.*
+
+
 node_modules/
 .next/
 .out/

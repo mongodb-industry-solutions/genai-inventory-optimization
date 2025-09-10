@@ -6,41 +6,49 @@ import {
 import { fromSSO } from "@aws-sdk/credential-provider-sso";
 import { defaultProvider } from "@aws-sdk/credential-provider-node";
 
-if (!process.env.COMPLETION_MODEL_ID) {
-  throw new Error(
-    'Invalid/Missing environment variable: "COMPLETION_MODEL_ID"'
-  );
-}
+let _envCache;
+function loadEnv() {
+  if (_envCache) return _envCache;
 
-if (!process.env.EMBEDDING_MODEL_ID) {
-  throw new Error('Invalid/Missing environment variable: "EMBEDDING_MODEL_ID"');
-}
+  const {
+    COMPLETION_MODEL_ID,
+    EMBEDDING_MODEL_ID,
+    AWS_REGION,
+    AWS_PROFILE,
+    NEXT_PUBLIC_ENV: ENV,
+  } = process.env;
 
-if (!process.env.AWS_REGION) {
-  throw new Error('Invalid/Missing environment variable: "AWS_REGION"');
-}
+  const missing = [];
+  if (!COMPLETION_MODEL_ID) missing.push("COMPLETION_MODEL_ID");
+  if (!EMBEDDING_MODEL_ID) missing.push("EMBEDDING_MODEL_ID");
+  if (!AWS_REGION) missing.push("AWS_REGION");
+  if (!AWS_PROFILE) missing.push("AWS_PROFILE");
+  if (!ENV) missing.push("NEXT_PUBLIC_ENV");
 
-if (!process.env.AWS_PROFILE) {
-  throw new Error('Invalid/Missing environment variable: "AWS_PROFILE"');
-}
+  if (missing.length) {
+    throw new Error(
+      `Missing required environment variables at runtime: ${missing.join(", ")}`
+    );
+  }
 
-if (!process.env.NEXT_PUBLIC_ENV) {
-  throw new Error('Invalid/Missing environment variable: "NEXT_PUBLIC_ENV"');
+  _envCache = {
+    COMPLETION_MODEL_ID,
+    EMBEDDING_MODEL_ID,
+    AWS_REGION,
+    AWS_PROFILE,
+    ENV,
+  };
+  return _envCache;
 }
-
-const COMPLETION_MODEL_ID = process.env.COMPLETION_MODEL_ID;
-const EMBEDDING_MODEL_ID = process.env.EMBEDDING_MODEL_ID;
-const AWS_REGION = process.env.AWS_REGION;
-const AWS_PROFILE = process.env.AWS_PROFILE;
-const ENV = process.env.NEXT_PUBLIC_ENV;
 
 let bedrockClient;
 function getBedrockClient() {
   if (!bedrockClient) {
+    const { AWS_REGION, AWS_PROFILE, ENV } = loadEnv();
     bedrockClient = new BedrockRuntimeClient({
       region: AWS_REGION,
       credentials:
-        ENV == "production"
+        ENV === "production"
           ? defaultProvider()
           : fromSSO({ profile: AWS_PROFILE }),
     });
@@ -49,6 +57,7 @@ function getBedrockClient() {
 }
 
 export async function getGeneratedCriteria(userPrompt) {
+  const { COMPLETION_MODEL_ID } = loadEnv();
   const systemPrompt = `
     You are an expert in inventory optimization. 
     You are defining new criteria for improving inventory classification.
@@ -161,6 +170,7 @@ export async function getGeneratedCriteria(userPrompt) {
 }
 
 export async function generateEmbedding(text) {
+  const { EMBEDDING_MODEL_ID } = loadEnv();
   const payload = {
     texts: [text],
     input_type: "search_query",
@@ -191,6 +201,7 @@ export async function generateEmbedding(text) {
 }
 
 export async function getCriteriaScore(criteriaDescription, reviews) {
+  const { COMPLETION_MODEL_ID } = loadEnv();
   const reviewTexts = JSON.stringify(reviews, null, 2);
 
   const systemPrompt = `
