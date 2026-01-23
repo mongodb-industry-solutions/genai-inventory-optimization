@@ -56,7 +56,7 @@ Create a file named `.env.local` in the `app/` folder with the following content
 ```env
 MONGODB_URI="<your-mongodb-connection-string>" # MongoDB Atlas connection string
 DATABASE_NAME="genai_inventory_classification" # Name of the database for this app
-COMPLETION_MODEL_ID="us.anthropic.claude-3-5-haiku-20241022-v1:0" # LLM used for criteria generation
+COMPLETION_MODEL_ID="us.anthropic.claude-haiku-4-5-20251001-v1:0" # LLM used for criteria generation
 EMBEDDING_MODEL_ID="cohere.embed-english-v3" # Embedding model used for vector generation
 AWS_REGION="us-east-1" # AWS Region for Bedrock services
 ```
